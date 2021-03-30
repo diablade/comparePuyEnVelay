@@ -1,0 +1,65 @@
+<div class="d-flex flex-column align-items-center mt-5">
+  <div class="title d-flex flex-column">
+    <div class="title1">
+      comparer le bugdet cumulé de 2017, 2018 et 2019 alloué par Wauqiez pour
+    </div>
+    <div class="title2">
+      le Puy en Velay avec votre commune
+    </div>
+  </div>
+
+  <mat-card class="question mt-5">
+    <div class="row">
+      <mat-form-field class="col-8 violet">
+        <input [formControl]="myControl" [matAutocomplete]="auto" aria-label="commune" matInput
+               placeholder="Quelle est votre commune ?"
+               type="text">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name">
+            {{option.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <div class="col-4 align-items-center violet">
+        <button (click)="comparer()" color="secondary" mat-button>COMPARER</button>
+      </div>
+    </div>
+  </mat-card>
+
+  <div *ngIf="exemple" class="resultat mt-5">
+    <div class="d-flex flex-row">
+      <div class="col left green">Vous avez reçu : {{myCommune.budget}}€ de la région</div>
+      <div class="col right violet">le Puy en Velay à été financer à hauteur de 4.745.502€ <a
+        href="https://www.mediapart.fr/journal/france/100321/argent-public-comment-laurent-wauquiez-arrose-les-siens">(source)</a>
+      </div>
+    </div>
+    <div class="violet">
+      soit une différence de : {{difference}}€
+    </div>
+    <div class="green">
+      voici un exemple parmis tant d'autres, de ce qui aurait pu etre financé avec cette differences dans votre commune:
+    </div>
+    <div class="exemple mt-5 violet">{{exemple}}</div>
+    <div class="foot mt-5 green">Si toi aussi tu veux plus de probité dans les subventions <a class="violet"
+                                                                                              href="https://www.appel-aura-ecologie.fr">rejoins-nous</a>
+    </div>
+  </div>
+</div>
+
+<!--<div>comparons au top 5 des votes pour wauqiez en 2016</div>-->
+<!--<div>pour rigoler (ou pas)</div>-->
+<!--<div>top 5 des mieux subventionner par wauquiez:</div>-->
+<!--<div class="row">-->
+<!--  <div class="d-flex flex-column col">-->
+<!--    <div *ngFor="let comm of top5" class="w-100">{{comm.name}} avec un budget de : {{comm.budget}}</div>-->
+<!--  </div>-->
+<!--  <div class="d-flex flex-column col">-->
+<!--    <div *ngFor="let comm of top5t1" class="w-100">{{comm.name}}, T1 de : {{comm.t1}}</div>-->
+<!--  </div>-->
+<!--  <div class="d-flex flex-column col">-->
+<!--    <div *ngFor="let comm of top5t2" class="w-100">{{comm.name}}, T2 de : {{comm.t2}}</div>-->
+<!--  </div>-->
+
+<!--</div>-->
+
+

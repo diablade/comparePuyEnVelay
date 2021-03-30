@@ -2,15 +2,15 @@
 
 @include mat-core();
 
-$mat-lo-primary: (50: #EEF3F4, 100:#99C1CC, 200:#006580, 300:#003B53, contrast: (
+$mat-lo-primary: (50: #EEF3F4, 100:#99C1CC, 200:#57cf52, 300:#003B53, contrast: (
   50: $black-87-opacity,
   100: $black-87-opacity,
   200: white,
   300: white,)
 );
-$mat-lo-secondary: (50: #f8f8f8, 100:#707070, 200:#4A4F54, 300:#22272B, contrast: (
+$mat-lo-secondary: (50: #f8f8f8, 100:#707070, 200:#2b2966, 300:#22272B, contrast: (
   50: $black-87-opacity,
-  100: linear-gradient(to right bottom, #1976D2, #6200EA),
+  100: white,
   200: white,
   300: white,)
 );
@@ -28,83 +28,15 @@ $mat-lo-danger: (50: #FFEBEE, 100:#FF605A, 200:#D22630, 300:#800008, contrast: (
 );
 
 
-$ex: #0a7b83;
-$gd: #2aa876;
-$nt: #ffd265;
-$bd: #f19c65;
-$rj: #e8554e;
-
-$mat-ex: (200:#0a7b83, contrast:(200:white));
-$mat-gd: (200:#2aa876, contrast:(200:white));
-$mat-nt: (200:#ffd265, contrast:(200:#353535));
-$mat-bd: (200:#f19c65, contrast:(200:white));
-$mat-rj: (200:#e8554e, contrast:(200:white));
-
 $primary: mat-palette($mat-lo-primary, 200);
 $accent: mat-palette($mat-lo-secondary, 200);
 $warn: mat-palette($mat-lo-warning, 200);
 $danger: mat-palette($mat-lo-danger, 200);
-$excellent: mat-palette($mat-ex, 200);
-$good: mat-palette($mat-gd, 200);
-$neutral: mat-palette($mat-nt, 200);
-$bad: mat-palette($mat-bd, 200);
-$rejected: mat-palette($mat-rj, 200);
 
 $theme: mat-light-theme($primary, $accent, $warn);
 
 @include angular-material-theme($theme);
 
-
-.borderBottomExcellent {
-  .mat-radio-label-content {
-    border-bottom: solid $ex 2px;
-
-  }
-}
-
-.borderBottomGood {
-  .mat-radio-label-content {
-    border-bottom: solid $gd 2px;
-
-  }
-}
-
-.borderBottomNeutral {
-  .mat-radio-label-content {
-    border-bottom: solid $nt 2px;
-
-  }
-}
-
-.borderBottomBad {
-  .mat-radio-label-content {
-    border-bottom: solid $bd 2px;
-
-  }
-}
-
-.borderBottomRejected {
-  .mat-radio-label-content {
-    border-bottom: solid $rj 2px;
-
-  }
-}
-
-.colorRejected{
-  color: $rj;
-}
-.colorBad{
-  color: $bd;
-}
-.colorNeutral{
-  color: $nt;
-}
-.colorGood{
-  color: $gd;
-}
-.colorExcellent{
-  color: $ex;
-}
 
 .colorText0{
   color: #000000;
