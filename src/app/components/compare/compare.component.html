@@ -1,48 +1,86 @@
-<div class="d-flex flex-column align-items-center mt-5">
+<div class="d-flex flex-column align-items-center mt-2 h-100 ml-2 mr-2 overflow-auto">
   <div class="title d-flex flex-column">
     <div class="title1">
-      comparer le bugdet cumulé de 2017, 2018 et 2019 alloué par Wauqiez pour
+      Suite aux
+      <a href="https://www.mediapart.fr/journal/france/100321/argent-public-comment-laurent-wauquiez-arrose-les-siens"
+         target="_blank">enquètes
+        de mediapart</a>
+      qui révèle le système opaque de distribution des subventions régionales de wauquiez
     </div>
-    <div class="title2">
-      le Puy en Velay avec votre commune
+    <div class="title2 green mt-2 font-weight-bold text-center">
+      Comparez le bugdet alloué de votre commune avec
+    </div>
+    <div class="title3 violet font-weight-bold">
+      le Puy en Velay
+    </div>
+    <div class="title4 gray">
+      (cumulé de 2017, 2018 et 2019)
+    </div>
+  </div>
+  <div class="question mt-4 align-items-center">
+    <!--    <mat-card>-->
+    <mat-form-field class="violet w-100">
+      <input [formControl]="myControl" [matAutocomplete]="auto" aria-label="commune" matInput
+             placeholder="Quelle est votre commune ?"
+             type="text">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name">
+          {{option.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <div class="violet w-100 text-center">
+      <button (click)="comparer()" color="primary" mat-raised-button>
+        COMPARER
+      </button>
     </div>
   </div>
 
-  <mat-card class="question mt-5">
-    <div class="row">
-      <mat-form-field class="col-8 violet">
-        <input [formControl]="myControl" [matAutocomplete]="auto" aria-label="commune" matInput
-               placeholder="Quelle est votre commune ?"
-               type="text">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name">
-            {{option.name}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-      <div class="col-4 align-items-center violet">
-        <button (click)="comparer()" color="secondary" mat-button>COMPARER</button>
-      </div>
-    </div>
-  </mat-card>
-
   <div *ngIf="exemple" class="resultat mt-5">
-    <div class="d-flex flex-row">
-      <div class="col left green">Vous avez reçu : {{myCommune.budget}}€ de la région</div>
-      <div class="col right violet">le Puy en Velay à été financer à hauteur de 4.745.502€ <a
-        href="https://www.mediapart.fr/journal/france/100321/argent-public-comment-laurent-wauquiez-arrose-les-siens">(source)</a>
+    <div class="d-flex flex-row no-gutters">
+      <div class="col bold left green">Vous avez reçu de la région:
+        <div class="budget">
+          {{myCommune.budget}}€
+        </div>
+      </div>
+
+      <div class="col right violet">le Puy en Velay a été financé à hauteur de
+        <div class="budget">
+          4745502€
+        </div>
       </div>
     </div>
-    <div class="violet">
-      soit une différence de : {{difference}}€
+    <div class="violet mt-3">
+      soit une différence de :
+      <div class="budget green">
+        {{difference}}€
+      </div>
     </div>
-    <div class="green">
-      voici un exemple parmis tant d'autres, de ce qui aurait pu etre financé avec cette differences dans votre commune:
+    <div class="violet mt-3">
+      voici un exemple parmi tant d'autres, de ce qui aurait pu être financé avec cette différence dans votre commune:
     </div>
-    <div class="exemple mt-5 violet">{{exemple}}</div>
-    <div class="foot mt-5 green">Si toi aussi tu veux plus de probité dans les subventions <a class="violet"
-                                                                                              href="https://www.appel-aura-ecologie.fr">rejoins-nous</a>
+    <div class="exemple mt-4 violet title2">{{exemple}}</div>
+    <button (click)="getExemple()" color="accent" mat-button>
+      un autre exemple ?
+    </button>
+    <div class="foot mt-4 text-center green title1 w-100">Toi aussi tu veux plus de probité dans les subventions ?</div>
+    <div class="text-center mb-2">
+      <a class="violet text-center join" href="https://www.appel-aura-ecologie.fr" target="_blank">
+        <button class="" color="accent" mat-raised-button>
+          ALORS REJOINS-NOUS :-)
+        </button>
+      </a>
     </div>
+    <div class="text-center">
+      et partage sur les reseaux sociaux ton résultat :
+      <button [cbContent]="'localhost:4200/avec/'+ myCommune.name" mat-raised-button ngxClipboard>Copie du lien
+        : {{myCommune.name}}
+      </button>
+    </div>
+  </div>
+  <div class="text-center mt-3">
+    <img alt="https://media.nouvelobs.com/referentiel/1024x512/2894887.jpg"
+         src="http://referentiel.nouvelobs.com/file/2894719.gif">
   </div>
 </div>
 

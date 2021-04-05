@@ -1,7 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import {ActivatedRoute} from '@angular/router';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-compare',
@@ -4051,41 +4053,55 @@ export class CompareComponent implements OnInit {
   filteredOptions: Observable<Commune[]>;
   myControl = new FormControl();
   count = [0, 0, 0, 0, 0, 0, 0];
-  top5: Commune[];
-  top5t1: Commune[];
-  top5t2: Commune[];
   myCommune: Commune;
+  // top5: Commune[];
+  // top5t1: Commune[];
+  // top5t2: Commune[];
 
-  constructor() {
-    this.top5 = this.getTop5();
-    this.top5t1 = this.getTop5VoteT1();
-    this.top5t2 = this.getTop5VoteT2();
+  constructor(private location: Location, private activatedRoute: ActivatedRoute) {
+    // this.top5 = this.getTop5();
+    // this.top5t1 = this.getTop5VoteT1();
+    // this.top5t2 = this.getTop5VoteT2();
+  }
+
+  private static getRandomInt(max: number): number {
+    return Math.floor(Math.random() * Math.floor(max));
   }
 
   ngOnInit(): void {
+    // let productid = this.activatedRoute.snapshot.params.slug;
+    // console.log(productid); // OUTPUT null
+
+    this.activatedRoute.paramMap.subscribe(params => {
+      const productid = params.get('slug');
+      // this.myControl.setValue();
+      console.log(productid);
+      console.log(this.activatedRoute.params);
+    });
+
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
-        startWith(''),
+        // startWith(''),
         map(value => this._filter(value))
       );
   }
 
   comparer(): void {
-    // for (const com of this.communes) {
-    //   const diss = this.puy - com.budget;
-    //   this.getExemple(diss);
-    // }
-    // console.log(this.count);
     if (this.myControl.valid) {
       const foundedCommune = this.communes.find(c => c.name === this.myControl.value);
       if (foundedCommune) {
         this.myCommune = foundedCommune;
         this.difference = this.puy - foundedCommune.budget;
-        this.exemple = this.getExemple(this.difference);
+        this.location.replaceState('/avec/' + this.myCommune.name);
+        this.getExemple();
       } else {
         // TODO error not found
       }
     }
+  }
+
+  copy() {
+
   }
 
   private _filter(value: string): Commune[] {
@@ -4093,38 +4109,34 @@ export class CompareComponent implements OnInit {
     return this.communes.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
-  private getRandomInt(max: number): number {
-    return Math.floor(Math.random() * Math.floor(max));
-  }
+  // private getTop5(): Commune[] {
+  //   const test = this.communes.sort((a, b) => {
+  //     return b.budget - a.budget;
+  //   });
+  //   return test.slice(0, 5);
+  // }
+  //
+  // private getTop5VoteT1(): Commune[] {
+  //   const test = this.communes.sort((a, b) => {
+  //     return b.t1 - a.t1;
+  //   });
+  //   return test.slice(0, 27);
+  // }
+  //
+  // private getTop5VoteT2(): Commune[] {
+  //   const test = this.communes.sort((a, b) => {
+  //     return b.t2 - a.t2;
+  //   });
+  //   return test.slice(0, 27);
 
-  private getExemple(diff: number): string {
+  private getExemple() {
     for (let i = this.subs.length - 1; i > 0; i--) {
-      if (diff >= this.subs[i].budget) {
+      if (this.difference >= this.subs[i].budget) {
         this.count[i]++;
-        return this.subs[i].exs[this.getRandomInt(this.subs[i].exs.length)];
+        this.exemple = this.subs[i].exs[CompareComponent.getRandomInt(this.subs[i].exs.length)];
+        break;
       }
     }
-  }
-
-  private getTop5(): Commune[] {
-    const test = this.communes.sort((a, b) => {
-      return b.budget - a.budget;
-    });
-    return test.slice(0, 5);
-  }
-
-  private getTop5VoteT1(): Commune[] {
-    const test = this.communes.sort((a, b) => {
-      return b.t1 - a.t1;
-    });
-    return test.slice(0, 27);
-  }
-
-  private getTop5VoteT2(): Commune[] {
-    const test = this.communes.sort((a, b) => {
-      return b.t2 - a.t2;
-    });
-    return test.slice(0, 27);
   }
 }
 

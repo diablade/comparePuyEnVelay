@@ -2,21 +2,44 @@
   width: 600px;
 }
 
+
 .title {
-  color: #57cf52;
+  align-items: center;
 
   &1 {
-    font-size: large;
+    font-size: medium;
   }
 
   &2 {
-    font-size: x-large;
+    font-size: xx-large;
+    font-style: italic;
   }
 
+  &3 {
+    font-size: xx-large;
+    font-style: italic;
+    text-decoration: underline;
+  }
+
+  &4 {
+    font-size: small;
+  }
+}
+
+.budget {
+  font-size: x-large;
+  font-weight: bold;
+}
+.join{
+  font-size: 20px;
+}
+
+.left {
 }
 
 .question {
-  width: 500px;
+  max-width: 500px;
+  width: 100%;
 }
 
 .example-form {
@@ -26,7 +49,7 @@
 }
 
 .resultat {
-  width: 500px;
+  max-width: 500px;
 }
 
 .green {
@@ -35,4 +58,12 @@
 
 .violet {
   color: #2b2966;
+}
+
+.gray {
+  color: gray;
+}
+
+.blue {
+  color: #2c57da;
 }

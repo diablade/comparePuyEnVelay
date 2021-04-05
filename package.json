@@ -7,6 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
+    "build-prod": "ng build --progress=true --base-href / --configuration=production",
+    "build-test": "ng build --progress=true --base-href /test --configuration=production",
     "e2e": "ng e2e"
   },
   "private": true,
@@ -22,6 +24,7 @@
     "@angular/platform-browser-dynamic": "~10.0.14",
     "@angular/router": "~10.0.14",
     "bootstrap": "^4.6.0",
+    "ngx-clipboard": "^14.0.1",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
