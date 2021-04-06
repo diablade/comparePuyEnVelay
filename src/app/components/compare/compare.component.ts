@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {ActivatedRoute} from '@angular/router';
-import {Location} from '@angular/common';
+import {Location, registerLocaleData} from '@angular/common';
+import fr from '@angular/common/locales/fr';
 
 @Component({
   selector: 'app-compare',
@@ -1897,15 +1898,7 @@ export class CompareComponent implements OnInit {
     {name: 'LUZINAY', budget: 21387, t1: 27.62, t2: 36.92},
     {name: 'LYAS', budget: 0, t1: 25.34, t2: 28.35},
     {name: 'LYAUD', budget: 10160, t1: 26.43, t2: 39.39},
-    {name: 'LYON 1ER SECTEUR', budget: 0, t1: null, t2: null},
-    {name: 'LYON 2EME SECTEUR', budget: 0, t1: null, t2: null},
-    {name: 'LYON 3EME SECTEUR', budget: 0, t1: null, t2: null},
-    {name: 'LYON 4EME SECTEUR', budget: 0, t1: null, t2: null},
-    {name: 'LYON 5EME SECTEUR', budget: 0, t1: null, t2: null},
-    {name: 'LYON 6EME SECTEUR', budget: 0, t1: null, t2: null},
-    {name: 'LYON 7EME SECTEUR', budget: 0, t1: null, t2: null},
-    {name: 'LYON 8EME SECTEUR', budget: 0, t1: null, t2: null},
-    {name: 'LYON 9EME SECTEUR', budget: 0, t1: null, t2: null},
+    {name: 'LYON', budget: 0, t1: null, t2: null},
     {name: 'MABLY', budget: 53816, t1: 23.25, t2: 31.17},
     {name: 'MACHÉZAL', budget: 0, t1: 37.96, t2: 41.04},
     {name: 'MACHILLY', budget: 0, t1: 30.74, t2: 44.26},
@@ -4069,30 +4062,27 @@ export class CompareComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // let productid = this.activatedRoute.snapshot.params.slug;
-    // console.log(productid); // OUTPUT null
-
+    registerLocaleData(fr);
     this.activatedRoute.paramMap.subscribe(params => {
-      const productid = params.get('slug');
-      // this.myControl.setValue();
-      console.log(productid);
-      console.log(this.activatedRoute.params);
+      const slug = params.get('slug');
+      this.myControl.setValue(slug);
+      console.log(slug);
+      this.comparer();
     });
 
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
-        // startWith(''),
         map(value => this._filter(value))
       );
   }
 
   comparer(): void {
     if (this.myControl.valid) {
-      const foundedCommune = this.communes.find(c => c.name === this.myControl.value);
+      const foundedCommune = this.communes.find(c => c.name.toLowerCase() === this.myControl.value.toLowerCase());
       if (foundedCommune) {
         this.myCommune = foundedCommune;
         this.difference = this.puy - foundedCommune.budget;
-        this.location.replaceState('/avec/' + this.myCommune.name);
+        this.location.replaceState('' + this.myCommune.name);
         this.getExemple();
       } else {
         // TODO error not found
@@ -4100,36 +4090,7 @@ export class CompareComponent implements OnInit {
     }
   }
 
-  copy() {
-
-  }
-
-  private _filter(value: string): Commune[] {
-    const filterValue = value.toLowerCase();
-    return this.communes.filter(option => option.name.toLowerCase().includes(filterValue));
-  }
-
-  // private getTop5(): Commune[] {
-  //   const test = this.communes.sort((a, b) => {
-  //     return b.budget - a.budget;
-  //   });
-  //   return test.slice(0, 5);
-  // }
-  //
-  // private getTop5VoteT1(): Commune[] {
-  //   const test = this.communes.sort((a, b) => {
-  //     return b.t1 - a.t1;
-  //   });
-  //   return test.slice(0, 27);
-  // }
-  //
-  // private getTop5VoteT2(): Commune[] {
-  //   const test = this.communes.sort((a, b) => {
-  //     return b.t2 - a.t2;
-  //   });
-  //   return test.slice(0, 27);
-
-  private getExemple() {
+  getExemple(): void {
     for (let i = this.subs.length - 1; i > 0; i--) {
       if (this.difference >= this.subs[i].budget) {
         this.count[i]++;
@@ -4137,6 +4098,11 @@ export class CompareComponent implements OnInit {
         break;
       }
     }
+  }
+
+  private _filter(value: string): Commune[] {
+    const filterValue = value.toLowerCase();
+    return this.communes.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 }
 
@@ -4146,3 +4112,24 @@ export class Commune {
   t1: number;
   t2: number;
 }
+
+// private getTop5(): Commune[] {
+//   const test = this.communes.sort((a, b) => {
+//     return b.budget - a.budget;
+//   });
+//   return test.slice(0, 5);
+// }
+//
+// private getTop5VoteT1(): Commune[] {
+//   const test = this.communes.sort((a, b) => {
+//     return b.t1 - a.t1;
+//   });
+//   return test.slice(0, 27);
+// }
+//
+// private getTop5VoteT2(): Commune[] {
+//   const test = this.communes.sort((a, b) => {
+//     return b.t2 - a.t2;
+//   });
+//   return test.slice(0, 27);
+

@@ -3,22 +3,21 @@
     <div class="title1">
       Suite aux
       <a href="https://www.mediapart.fr/journal/france/100321/argent-public-comment-laurent-wauquiez-arrose-les-siens"
-         target="_blank">enquètes
+         target="_blank">enquêtes
         de mediapart</a>
-      qui révèle le système opaque de distribution des subventions régionales de wauquiez
+      qui révèlent le système opaque de distribution des subventions régionales de Wauquiez
     </div>
     <div class="title2 green mt-2 font-weight-bold text-center">
-      Comparez le bugdet alloué de votre commune avec
+      Comparez le montant des subventions accordées à votre commune avec celles accordées au
     </div>
     <div class="title3 violet font-weight-bold">
-      le Puy en Velay
+      Puy-en-Velay
     </div>
     <div class="title4 gray">
       (cumulé de 2017, 2018 et 2019)
     </div>
   </div>
   <div class="question mt-4 align-items-center">
-    <!--    <mat-card>-->
     <mat-form-field class="violet w-100">
       <input [formControl]="myControl" [matAutocomplete]="auto" aria-label="commune" matInput
              placeholder="Quelle est votre commune ?"
@@ -35,51 +34,57 @@
       </button>
     </div>
   </div>
-
   <div *ngIf="exemple" class="resultat mt-5">
     <div class="d-flex flex-row no-gutters">
-      <div class="col bold left green">Vous avez reçu de la région:
+      <div class="col bold left green">Votre commune à reçu de la région:
         <div class="budget">
-          {{myCommune.budget}}€
+          {{myCommune.budget| number:'' :'fr'}}€
         </div>
       </div>
 
-      <div class="col right violet">le Puy en Velay a été financé à hauteur de
+      <div class="col right violet ml-2">le Puy en Velay a été financé à hauteur de
         <div class="budget">
-          4745502€
+          {{puy| number:'' :'fr' }}€
         </div>
       </div>
     </div>
     <div class="violet mt-3">
-      soit une différence de :
+      Soit une différence de :
       <div class="budget green">
-        {{difference}}€
+        {{difference| number:'':'fr' }}€
       </div>
     </div>
     <div class="violet mt-3">
-      voici un exemple parmi tant d'autres, de ce qui aurait pu être financé avec cette différence dans votre commune:
+      Voici un exemple parmi tant d'autres de ce qui aurait pu être financé avec si la région avait autant investi dans
+      votre commune:
     </div>
-    <div class="exemple mt-4 violet title2">{{exemple}}</div>
+    <div class="exemple mt-4 violet title2 font-weight-bold">{{exemple}}</div>
     <button (click)="getExemple()" color="accent" mat-button>
-      un autre exemple ?
+      Un autre exemple ?
     </button>
-    <div class="foot mt-4 text-center green title1 w-100">Toi aussi tu veux plus de probité dans les subventions ?</div>
+    <div class="foot mt-4 text-center green title1 w-100 font-weight-bold">
+      Vous aussi vous voulez plus de probité dans les subventions ?
+    </div>
     <div class="text-center mb-2">
       <a class="violet text-center join" href="https://www.appel-aura-ecologie.fr" target="_blank">
         <button class="" color="accent" mat-raised-button>
-          ALORS REJOINS-NOUS :-)
+          ALORS REJOIGNEZ-NOUS :-)
         </button>
       </a>
     </div>
     <div class="text-center">
-      et partage sur les reseaux sociaux ton résultat :
-      <button [cbContent]="'localhost:4200/avec/'+ myCommune.name" mat-raised-button ngxClipboard>Copie du lien
-        : {{myCommune.name}}
-      </button>
+      et partagez sur les réseaux sociaux votre résultat :
+      <share-buttons
+        [include]="['facebook','twitter','messenger','whatsapp','sms','telegram','copy','email','linkedin']"
+        [showText]="true"
+        [show]="5"
+        [size]="0"
+        [theme]="'material-light'">
+      </share-buttons>
     </div>
   </div>
   <div class="text-center mt-3">
-    <img alt="https://media.nouvelobs.com/referentiel/1024x512/2894887.jpg"
+    <img alt="assets/wauquiez.gif" class="w-100"
          src="http://referentiel.nouvelobs.com/file/2894719.gif">
   </div>
 </div>

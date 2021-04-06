@@ -12,7 +12,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatOptionModule} from '@angular/material/core';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
-import {ClipboardModule} from 'ngx-clipboard';
+import {ShareButtonsModule} from 'ngx-sharebuttons/buttons';
+import {ShareIconsModule} from 'ngx-sharebuttons/icons';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {ClipboardModule} from 'ngx-clipboard';
     MatAutocompleteModule,
     MatCardModule,
     MatButtonModule,
-    ClipboardModule,
+    ShareButtonsModule,
+    ShareIconsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
