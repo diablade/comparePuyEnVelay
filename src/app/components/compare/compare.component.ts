@@ -1898,7 +1898,7 @@ export class CompareComponent implements OnInit {
     {name: 'LUZINAY', budget: 21387, t1: 27.62, t2: 36.92},
     {name: 'LYAS', budget: 0, t1: 25.34, t2: 28.35},
     {name: 'LYAUD', budget: 10160, t1: 26.43, t2: 39.39},
-    {name: 'LYON', budget: 0, t1: null, t2: null},
+    {name: 'LYON', budget: 627219, t1: null, t2: null},
     {name: 'MABLY', budget: 53816, t1: 23.25, t2: 31.17},
     {name: 'MACHÉZAL', budget: 0, t1: 37.96, t2: 41.04},
     {name: 'MACHILLY', budget: 0, t1: 30.74, t2: 44.26},
@@ -4028,18 +4028,19 @@ export class CompareComponent implements OnInit {
     {name: 'YZEURE', budget: 49904, t1: 26.89, t2: 33.22},
   ];
   subs = [
-    {budget: 200000, exs: ['Création d\'un square', 'Rénovation des locaux d\'un cinéma indépendant', 'Végétalisation d\'une place']},
-    {budget: 2000000, exs: ['Réhabilitation d\'une piscine', 'Réhabilitation d\'un petit musée', 'Construction d\'une école']},
-    {budget: 2500000, exs: ['Rénovation d\'une école', 'Construction d\'un centre social']},
+    {budget: 200000, exs: ['La création d\'un square', 'La rénovation des locaux d\'un cinéma indépendant', 'La végétalisation d\'une place']},
+    {budget: 2000000, exs: ['La réhabilitation d\'une piscine', 'La réhabilitation d\'un petit musée', 'La construction d\'une école']},
+    {budget: 2500000, exs: ['La rénovation d\'une école', 'La construction d\'un centre social']},
     {
       budget: 3000000,
-      exs: ['Construction et aménagement de deux crèches', 'Rénovation de 3 EHPAD', 'Réhabilitation de trois complexes sportifs']
+      exs: ['La construction et aménagement de deux crèches', 'La rénovation de 3 EHPAD', 'La réhabilitation de trois complexes sportifs']
     },
-    {budget: 3500000, exs: ['Rénovation de 7 MJC', 'Ouverture de 3 gares sur une ligne TER existante']},
-    {budget: 4000000, exs: ['Création d\'une forêt urbaine', 'Rénovation de 4 gymnases', 'Réhabilitation de deux piscines']},
-    {budget: 4500000, exs: ['Financement de 4,5 km de ligne TER', 'Rénovation de deux écoles']},
+    {budget: 3500000, exs: ['La rénovation de 7 MJC', 'L\'ouverture de 3 gares sur une ligne TER existante']},
+    {budget: 4000000, exs: ['La création d\'une forêt urbaine', 'La rénovation de 4 gymnases', 'La réhabilitation de deux piscines']},
+    {budget: 4500000, exs: ['Le financement de 4,5 km de ligne TER', 'La rénovation de deux écoles']},
   ];
   puy = 4745502;
+  description: string;
   result = false;
   difference: number;
   exemple: string;
@@ -4095,6 +4096,13 @@ export class CompareComponent implements OnInit {
       if (this.difference >= this.subs[i].budget) {
         this.count[i]++;
         this.exemple = this.subs[i].exs[CompareComponent.getRandomInt(this.subs[i].exs.length)];
+        this.description = '#PuySansFond Ma Commune a bénéficié de '
+          + this.difference
+          + '€ de la part de la région, contre '
+          + this.puy
+          + '€ pour le #PuyEnVelay. Ce qui aurait pu financer: '
+          + this.exemple
+          + '. Et chez vous ? Faites le test !';
         break;
       }
     }

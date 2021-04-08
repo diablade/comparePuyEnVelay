@@ -36,13 +36,13 @@
   </div>
   <div *ngIf="exemple" class="resultat mt-5">
     <div class="d-flex flex-row no-gutters">
-      <div class="col bold left green">Votre commune à reçu de la région:
+      <div class="col bold left green">{{myCommune.name}} a reçu de la région:
         <div class="budget">
           {{myCommune.budget| number:'' :'fr'}}€
         </div>
       </div>
 
-      <div class="col right violet ml-2">le Puy en Velay a été financé à hauteur de
+      <div class="col right violet ml-2">Le Puy en Velay a été financé à hauteur de
         <div class="budget">
           {{puy| number:'' :'fr' }}€
         </div>
@@ -56,7 +56,7 @@
     </div>
     <div class="violet mt-3">
       Voici un exemple parmi tant d'autres de ce qui aurait pu être financé avec si la région avait autant investi dans
-      votre commune:
+      votre commune :
     </div>
     <div class="exemple mt-4 violet title2 font-weight-bold">{{exemple}}</div>
     <button (click)="getExemple()" color="accent" mat-button>
@@ -79,6 +79,7 @@
         [showText]="true"
         [show]="5"
         [size]="0"
+        [description]="description"
         [theme]="'material-light'">
       </share-buttons>
     </div>
