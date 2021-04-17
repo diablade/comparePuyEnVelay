@@ -4097,7 +4097,7 @@ export class CompareComponent implements OnInit {
         this.count[i]++;
         this.exemple = this.subs[i].exs[CompareComponent.getRandomInt(this.subs[i].exs.length)];
         this.description = '#PuySansFond Ma Commune a bénéficié de '
-          + this.difference
+          + this.myCommune.budget
           + '€ de la part de la région, contre '
           + this.puy
           + '€ pour le #PuyEnVelay. Ce qui aurait pu financer: '
