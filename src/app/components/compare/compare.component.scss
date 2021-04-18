@@ -30,6 +30,14 @@
 .budget {
   font-size: x-large;
   font-weight: bold;
+  &-hab{
+    font-size: medium;
+    font-weight: bold;
+  }
+  &-coul{
+    font-weight: normal;
+
+  }
 }
 
 .join {

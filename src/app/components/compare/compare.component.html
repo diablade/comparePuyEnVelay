@@ -19,7 +19,8 @@
   </div>
   <div class="question mt-4 align-items-center">
     <mat-form-field class="violet w-100">
-      <input [formControl]="myControl" [matAutocomplete]="auto" aria-label="commune" matInput
+      <input (keyup.enter)="comparer()" [formControl]="myControl" [matAutocomplete]="auto" aria-label="commune"
+             matInput
              placeholder="Quelle est votre commune ?"
              type="text">
       <mat-autocomplete #auto="matAutocomplete">
@@ -40,53 +41,73 @@
         <div class="budget">
           {{myCommune.budget| number:'' :'fr'}}€
         </div>
+        <div [matTooltip]="'≈ '+myCommune.nbHab+' habitants'" class="budget-hab">
+          ({{myCommune.budget / myCommune.nbHab| number:'1.2-2' :'fr'}}€/habitant)
+        </div>
+        <div class="budget-coul">
+          (couleur politique du maire à cette période: <b>{{getTradCouleurPol(myCommune.etiq)}}</b>)
+        </div>
       </div>
 
       <div class="col right violet ml-2">Le Puy en Velay a été financé à hauteur de
         <div class="budget">
           {{puy| number:'' :'fr' }}€
         </div>
+        <div [matTooltip]="'≈ '+puyNbHab+' habitants'" class="budget-hab">
+          ({{(puy / puyNbHab)| number:'1.2-2' :'fr'}}€/habitant)
+        </div>
+        <div class="budget-coul">
+          (couleur politique du maire à cette période: <b>{{puyEtiq}}</b>)
+        </div>
       </div>
     </div>
-    <div class="violet mt-3">
+    <div *ngIf="difference>0" class="violet mt-3">
       Soit une différence de :
       <div class="budget green">
         {{difference| number:'':'fr' }}€
       </div>
     </div>
-    <div class="violet mt-3">
-      Voici un exemple parmi tant d'autres de ce qui aurait pu être financé avec si la région avait autant investi dans
-      votre commune :
+    <div *ngIf="difference===0" class="puy">
+      <div class="text-center mt-3">
+        <img alt="http://referentiel.nouvelobs.com/file/2894719.gif" class="w-100" src="assets/lolo.jpg">
+      </div>
     </div>
-    <div class="exemple mt-4 violet title2 font-weight-bold">{{exemple}}</div>
-    <button (click)="getExemple()" color="accent" mat-button>
-      Un autre exemple ?
-    </button>
-    <div class="foot mt-4 text-center green title1 w-100 font-weight-bold">
-      Vous aussi vous voulez plus de probité dans les subventions ?
-    </div>
-    <div class="text-center mb-2">
-      <a class="violet text-center join" href="https://www.appel-aura-ecologie.fr" target="_blank">
-        <button class="" color="accent" mat-raised-button>
-          ALORS REJOIGNEZ-NOUS :-)
-        </button>
-      </a>
-    </div>
-    <div class="text-center">
-      et partagez sur les réseaux sociaux votre résultat :
-      <share-buttons
-        [include]="['facebook','twitter','messenger','whatsapp','sms','telegram','copy','email','linkedin']"
-        [showText]="true"
-        [show]="5"
-        [size]="0"
-        [description]="description"
-        [theme]="'material-light'">
-      </share-buttons>
+    <div *ngIf="difference>0">
+      <div class="violet mt-3">
+        Voici un exemple parmi tant d'autres de ce qui aurait pu être financé avec si la région avait autant investi
+        dans
+        votre commune :
+      </div>
+      <div class="exemple mt-4 violet title2 font-weight-bold">{{exemple}}</div>
+      <button (click)="getExemple()" color="accent" mat-button>
+        Un autre exemple ?
+      </button>
+      <div class="foot mt-4 text-center green title1 w-100 font-weight-bold">
+        Vous aussi vous voulez plus de probité dans les subventions ?
+      </div>
+      <div class="text-center mb-2">
+        <a class="violet text-center join" href="https://www.appel-aura-ecologie.fr" target="_blank">
+          <button class="" color="accent" mat-raised-button>
+            ALORS REJOIGNEZ-NOUS :-)
+          </button>
+        </a>
+      </div>
+      <div class="text-center">
+        et partagez sur les réseaux sociaux votre résultat :
+        <share-buttons
+          [description]="description"
+          [include]="['facebook','twitter','messenger','whatsapp','sms','telegram','copy','email','linkedin']"
+          [showText]="true"
+          [show]="5"
+          [size]="0"
+          [theme]="'material-light'">
+        </share-buttons>
+      </div>
     </div>
   </div>
   <div class="text-center mt-3">
-    <img alt="assets/wauquiez.gif" class="w-100"
-         src="http://referentiel.nouvelobs.com/file/2894719.gif">
+    <img alt="http://referentiel.nouvelobs.com/file/2894719.gif" class="w-100"
+         src="assets/wauquiez.gif">
   </div>
 </div>
 
