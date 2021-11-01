@@ -15,11 +15,15 @@ import {MatButtonModule} from '@angular/material/button';
 import {ShareButtonsModule} from 'ngx-sharebuttons/buttons';
 import {ShareIconsModule} from 'ngx-sharebuttons/icons';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { TopComponentComponent } from './component/top-component/top-component.component';
+import { TopCompareComponent } from './components/top-compare/top-compare.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CompareComponent
+    CompareComponent,
+    TopComponentComponent,
+    TopCompareComponent
   ],
     imports: [
         BrowserModule,

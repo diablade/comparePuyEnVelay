@@ -44,9 +44,9 @@
         <div [matTooltip]="'≈ '+myCommune.nbHab+' habitants'" class="budget-hab">
           ({{myCommune.budget / myCommune.nbHab| number:'1.2-2' :'fr'}}€/habitant)
         </div>
-        <div class="budget-coul">
-          (couleur politique du maire à cette période: <b>{{getTradCouleurPol(myCommune.etiq)}}</b>)
-        </div>
+<!--        <div class="budget-coul">-->
+<!--          (couleur politique du maire à cette période : <b>{{getTradCouleurPol(myCommune.etiq)}}</b>)-->
+<!--        </div>-->
       </div>
 
       <div class="col right violet ml-2">Le Puy en Velay a été financé à hauteur de
@@ -56,9 +56,9 @@
         <div [matTooltip]="'≈ '+puyNbHab+' habitants'" class="budget-hab">
           ({{(puy / puyNbHab)| number:'1.2-2' :'fr'}}€/habitant)
         </div>
-        <div class="budget-coul">
-          (couleur politique du maire à cette période: <b>{{puyEtiq}}</b>)
-        </div>
+<!--        <div class="budget-coul">-->
+<!--          (couleur politique du maire à cette période : <b>{{puyEtiq}}</b>)-->
+<!--        </div>-->
       </div>
     </div>
     <div *ngIf="difference>0" class="violet mt-3">
